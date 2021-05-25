@@ -40,12 +40,12 @@ import 'udp_port.dart';
 ///
 /// Bundles an [InternetAddress] and a [Port].
 class Endpoint {
-  InternetAddress _address;
+  final InternetAddress _address;
 
   /// The address of this endpoint.
   InternetAddress get address => _address;
 
-  Port _port;
+  final Port _port;
 
   /// The port of this endpoint.
   Port get port => _port;
@@ -63,41 +63,36 @@ class Endpoint {
   bool get isMulticast => _isMulticast;
 
   /// Creates a Unicast endpoint.
-  Endpoint.unicast(this._address, {Port port = Port.any}) {
-    _port = port;
-  }
+  Endpoint.unicast(this._address, {Port port = Port.any}) : _port = port;
 
   /// Creates a Broadcast endpoint.
-  Endpoint.broadcast({Port port = Port.any}) {
-    this._address = InternetAddress('255.255.255.255');
-    _port = port;
+  Endpoint.broadcast({Port port = Port.any})
+      : _port = port,
+        _address = InternetAddress('255.255.255.255') {
     _isBroadcast = true;
   }
 
   /// An endpoint with the address of the local machine 127.0.0.1.
   ///
   /// [port] represents the port the endpoint is bound to.
-  Endpoint.loopback({Port port = Port.any}) {
-    _address = InternetAddress.loopbackIPv4;
-    _port = port;
-  }
+  Endpoint.loopback({Port port = Port.any})
+      : _port = port,
+        _address = InternetAddress.loopbackIPv4;
 
   /// Creates a Multicast endpoint.
   ///
   /// [_address] should be a valid Multicast address in the range 224.0.0.0
   /// to 239.255.255.255.
-  Endpoint.multicast(this._address, {Port port = Port.any}) {
-    _port = port;
+  Endpoint.multicast(this._address, {Port port = Port.any}) : _port = port {
     _isMulticast = true;
   }
 
   /// Creates a random Endpoint.
   ///
   /// The OS will choose an appropriate [InternetAddress] and [Port].
-  Endpoint.any({port = Port.any}) {
-    _address = InternetAddress.anyIPv4;
-    _port = port;
-  }
+  Endpoint.any({port = Port.any})
+      : _port = port,
+        _address = InternetAddress.anyIPv4;
 
   // internal constructor.
   Endpoint._(this._address, this._port);

@@ -33,6 +33,7 @@
  */
 
 import 'dart:io';
+
 import 'package:udp/udp.dart';
 
 void main() async {
@@ -52,8 +53,10 @@ void main() async {
 
   // receiving\listening
   await receiver.listen((datagram) {
-    var str = String.fromCharCodes(datagram.data);
-    stdout.write(str);
+    if (datagram != null) {
+      var str = String.fromCharCodes(datagram.data);
+      stdout.write(str);
+    }
   }, timeout: Duration(seconds: 20));
 
   // close the UDP instances and their sockets.

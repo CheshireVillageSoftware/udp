@@ -1,5 +1,9 @@
 Lightweight UDP library for Dart.
 
+# Null Safety
+
+Fork adds null safety support. Repository will be deleted once original repo is updated for null safety.
+
 ## Usage
 
 A simple usage example:
